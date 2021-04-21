@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.CompilerServices;
+
 namespace System.Device.Spi
 {
     /// <summary>
@@ -9,12 +11,26 @@ namespace System.Device.Spi
     /// </summary>
     public class SpiDevice : IDisposable
     {
-        private Windows.Devices.Spi.SpiDevice _device;
+        // generate a unique ID for the device by joining the SPI bus ID and the chip select line, should be pretty unique
+        // the encoding is (SPI bus number x 1000 + chip select line number)
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        private const int deviceUniqueIdMultiplier = 1000;
+
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        private readonly int _deviceId;
 
         [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
         private readonly Spi​Connection​Settings _connectionSettings;
+
+        private bool _disposedValue;
+
+        // this is used as the lock object 
+        // a lock is required because multiple threads can access the device (Dispose)
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        private object _syncLock;
+
         // For the ReadByte and WriteByte operations
-        private byte[] bufferSingleOperation = new byte[1];
+        private byte[] _bufferSingleOperation = new byte[1];
 
         /// <summary>
         /// The connection settings of a device on a SPI bus. The connection settings are immutable after the device is created
@@ -31,8 +47,8 @@ namespace System.Device.Spi
         /// <returns>A byte read from the SPI device.</returns>
         public byte ReadByte()
         {
-            _device.Read(bufferSingleOperation);
-            return bufferSingleOperation[0];
+            NativeTransfer(null, _bufferSingleOperation, false);
+            return _bufferSingleOperation[0];
         }
 
         /// <summary>
@@ -44,14 +60,7 @@ namespace System.Device.Spi
         /// </param>
         public void Read(SpanByte buffer)
         {
-            // This is allocating an intermediate buffer and then copy back the data to 
-            // the SpanByte. This is intend to be changed in a native implementation
-            byte[] toRead = new byte[buffer.Length];
-            _device.Read(toRead);
-            for (int i = 0; i < toRead.Length; i++)
-            {
-                buffer[i] = toRead[i];
-            }
+            NativeTransfer(null, buffer, false);
         }
 
         /// <summary>
@@ -60,8 +69,8 @@ namespace System.Device.Spi
         /// <param name="value">The byte to be written to the SPI device.</param>
         public void WriteByte(byte value)
         {
-            bufferSingleOperation[0] = value;
-            _device.Write(bufferSingleOperation);
+            _bufferSingleOperation[0] = value;
+            NativeTransfer(_bufferSingleOperation, null, false);
         }
 
         /// <summary>
@@ -72,9 +81,7 @@ namespace System.Device.Spi
         /// </param>
         public void Write(SpanByte buffer)
         {
-            // This is allocating an intermediate buffer using the buffer of 
-            // the SpanByte. This is intend to be changed in a native implementation
-            _device.Write(buffer.ToArray());
+            NativeTransfer(buffer, null, false);
         }
 
         /// <summary>
@@ -84,14 +91,50 @@ namespace System.Device.Spi
         /// <param name="readBuffer">The buffer to read the data from the SPI device.</param>
         public void TransferFullDuplex(SpanByte writeBuffer, SpanByte readBuffer)
         {
-            // This is allocating an intermediate buffer using the buffer of 
-            // the SpanByte. This is intend to be changed in a native implementation
-            byte[] toRead = new byte[readBuffer.Length];
-            _device.TransferFullDuplex(writeBuffer.ToArray(), toRead);
-            for (int i = 0; i < toRead.Length; i++)
-            {
-                readBuffer[i] = toRead[i];
-            }
+            NativeTransfer(writeBuffer, readBuffer, true);
+        }
+
+        /// <summary>
+        /// Reads data from the SPI device.
+        /// </summary>
+        /// <param name="buffer">
+        /// The buffer to read the data from the SPI device.
+        /// The length of the buffer determines how much data to read from the SPI device.
+        /// </param>
+        public void Read(ushort[] buffer)
+        {
+            NativeTransfer(null, buffer, false);
+        }
+
+        /// <summary>
+        /// Writes data to the SPI device.
+        /// </summary>
+        /// <param name="buffer">
+        /// The buffer that contains the data to be written to the SPI device.
+        /// </param>
+        public void Write(ushort[] buffer)
+        {
+            NativeTransfer(buffer, null, false);
+        }
+
+        /// <summary>
+        /// Writes and reads data from the SPI device.
+        /// </summary>
+        /// <param name="writeBuffer">The buffer that contains the data to be written to the SPI device.</param>
+        /// <param name="readBuffer">The buffer to read the data from the SPI device.</param>
+        public void TransferFullDuplex(ushort[] writeBuffer, ushort[] readBuffer)
+        {
+            NativeTransfer(writeBuffer, readBuffer, true);
+        }
+
+        /// <summary>
+        /// Retrieves the info about a certain bus.
+        /// </summary>
+        /// <param name="busId">The id of the bus.</param>
+        /// <returns>The bus info requested.</returns>
+        public static SpiBusInfo GetBusInfo(int busId)
+        {
+            return new SpiBusInfo(busId);
         }
 
         /// <summary>
@@ -110,15 +153,31 @@ namespace System.Device.Spi
         /// <param name="settings">The connection settings of a device on a SPI bus.</param>
         public SpiDevice(SpiConnectionSettings settings)
         {
-            _connectionSettings = settings;
-            _device = Windows.Devices.Spi.SpiDevice.FromId($"SPI{settings.BusId}", new Windows.Devices.Spi.SpiConnectionSettings(settings.ChipSelectLine)
+            try
             {
-                BitOrder = settings.DataFlow == DataFlow.MsbFirst ? Windows.Devices.Spi.DataBitOrder.MSB : Windows.Devices.Spi.DataBitOrder.LSB,
-                ClockFrequency = settings.ClockFrequency,
-                DataBitLength = settings.DataBitLength,
-                Mode = (Windows.Devices.Spi.SpiMode)settings.Mode,
-                SharingMode = (Windows.Devices.Spi.SpiSharingMode)settings.SharingMode
-            });
+                _connectionSettings = new SpiConnectionSettings(settings);
+
+                _deviceId = NativeOpenDevice();
+            }
+            catch (NotSupportedException)
+            {
+                // NotSupportedException 
+                //   Device(chip select) already in use
+                throw new SpiDeviceAlreadyInUseException();
+            }
+            catch (Exception ex)
+            {
+                // ArgumentException
+                //   Invalid port or unable to init bus
+                // IndexOutOfRangeException
+                //   Too many devices open or spi already in use
+                throw ex;
+            }
+
+            // device doesn't exist, create it...
+            _connectionSettings = new SpiConnectionSettings(settings);
+
+            _syncLock = new object();
         }
 
         /// <summary>
@@ -126,8 +185,15 @@ namespace System.Device.Spi
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            lock (_syncLock)
+            {
+                if (!_disposedValue)
+                {
+                    Dispose(true);
+
+                    GC.SuppressFinalize(this);
+                }
+            }
         }
 
         /// <summary>
@@ -136,7 +202,36 @@ namespace System.Device.Spi
         /// <param name="disposing"><see langword="true"/> if explicitly disposing, <see langword="false"/> if in finalizer</param>
         protected void Dispose(bool disposing)
         {
-            // Nothing to do in base class.
+            if (!_disposedValue)
+            {
+                DisposeNative();
+
+                _disposedValue = true;
+            }
         }
+
+        ~SpiDevice()
+        {
+            Dispose(false);
+        }
+
+        #region Native Calls
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern void DisposeNative();
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern void NativeTransfer(SpanByte writeBuffer, SpanByte readBuffer, bool fullDuplex);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern void NativeTransfer(ushort[] writeBuffer, ushort[] readBuffer, bool fullDuplex);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern void NativeInit();
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern Int32 NativeOpenDevice();
+
+        #endregion
     }
 }

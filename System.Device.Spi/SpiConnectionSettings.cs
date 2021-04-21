@@ -19,6 +19,7 @@ namespace System.Device.Spi
         private SpiSharingMode _spiSharingMode;
         private DataFlow _dataFlow = DataFlow.MsbFirst;
         private int _busId;
+        private PinValue _chipSelectLineActiveState = PinValue.Low;
 
         /// <summary>
         /// Initializes new instance of SpiConnectionSettings.
@@ -132,7 +133,11 @@ namespace System.Device.Spi
         /// <summary>
         /// Specifies which value on chip select pin means "active".
         /// </summary>
-        public PinValue ChipSelectLineActiveState { get; set; } = PinValue.Low;
+        public PinValue ChipSelectLineActiveState
+        {
+            get => _chipSelectLineActiveState;
+            set => _chipSelectLineActiveState = value;
+        }
 
         /// <summary>
         /// Gets or sets the sharing mode for the SPI connection.
