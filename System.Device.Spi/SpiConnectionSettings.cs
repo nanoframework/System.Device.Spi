@@ -50,6 +50,7 @@ namespace System.Device.Spi
             ClockFrequency = other.ClockFrequency;
             DataFlow = other.DataFlow;
             ChipSelectLineActiveState = other.ChipSelectLineActiveState;
+            SharingMode = other.SharingMode;
         }
 
         /// <summary>

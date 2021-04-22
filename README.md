@@ -13,6 +13,94 @@
 | System.Device.Spi | [![Build Status](https://dev.azure.com/nanoframework/System.Device.Spi/_apis/build/status/nanoframework.lib-System.Device.Spi?branchName=develop)](https://dev.azure.com/nanoframework/System.Device.Spi/_build/latest?definitionId=7?branchName=master) | [![NuGet](https://img.shields.io/nuget/v/nanoFramework.System.Device.Spi.svg?label=NuGet&style=flat&logo=nuget)](https://www.nuget.org/packages/nanoFramework.System.Device.Spi/) |
 | System.Device.Spi (preview) | [![Build Status](https://dev.azure.com/nanoframework/System.Device.Spi/_apis/build/status/nanoframework.lib-System.Device.Spi?branchName=develop)](https://dev.azure.com/nanoframework/System.Device.Spi/_build/latest?definitionId=7?branchName=develop) | [![](https://badgen.net/badge/NuGet/preview/D7B023?icon=https://simpleicons.now.sh/azuredevops/fff)](https://dev.azure.com/nanoframework/feed/_packaging?_a=package&feed=sandbox&package=nanoFramework.System.Device.Spi&protocolType=NuGet&view=overview) |
 
+## Usage
+
+To create a SpiDevice, you need to follow this pattern:
+
+```csharp
+SpiDevice spiDevice;
+SpiConnectionSettings connectionSettings;
+// Note: the ChipSelect pin should be adjusted to your device, here 12
+// You can adjust as well the bus, here 1 for SPI1
+connectionSettings = new SpiConnectionSettings(1, 12);
+spiDevice = SpiDevice.Create(connectionSettings);
+```
+
+### SpiConnectionSettings and SpiBusInfo
+
+The `SpiConnectionSettings` contains the key elements needed to setup properly the hardware SPI device. Once created, those elements can't be adjusted.
+
+```csharp
+connectionSettings.ChipSelectLineActiveState = PinValue.High; // Default is active Low
+connectionSettings.ClockFrequency = 1_000_000;
+connectionSettings.DataFlow = DataFlow.LsbFirst; // Default is MSB
+```
+
+To get the default bus values, especially the bus min and max frequencies, the maximum number of ChipSelect, you can use `SpiBusInfo`.
+
+```csharp
+SpiBusInfo spiBusInfo = SpiDevice.GetBusInfo(1);
+Debug.WriteLine($"{nameof(spiBusInfo.ChipSelectLineCount)}: {spiBusInfo.ChipSelectLineCount}");
+Debug.WriteLine($"{nameof(spiBusInfo.MaxClockFrequency)}: {spiBusInfo.MaxClockFrequency}");
+Debug.WriteLine($"{nameof(spiBusInfo.MinClockFrequency)}: {spiBusInfo.MinClockFrequency}");
+Debug.WriteLine($"{nameof(spiBusInfo.SupportedDataBitLengths)}: ");
+foreach(var data in spiBusInfo.SupportedDataBitLengths)
+{
+    Debug.WriteLine($"  {data}");
+}
+```
+
+### Reading and Writing
+
+You can read, write and do a full transfer. You have the opportunity to use either a `SpanByte`, either a `ushort` array. 
+
+**Important**: in both cases, the data bit length will be automatically adjusted. So you can use both `SpanByte` and `ushort` array at the same time.
+
+You can write a `SpanByte` like this:
+
+```csharp
+SpanByte writeBuffer = new byte[2] { 42, 84 };
+spiDevice.Write(writeBuffer);
+```
+
+You can write a `ushort` array like this:
+
+```csharp
+ushort[] writeBuffer = new ushort[2] { 4200, 8432 };
+spiDevice.Write(writeBuffer);
+```
+
+You can as well write a single byte:
+
+```csharp
+spiDevice.WriteByte(42);
+```
+
+Read operations are similar:
+
+```csharp
+SpanByte readBuffer = new byte[2];
+// This will read 2 bytes
+spiDevice.Read(readBuffer);
+ushort[] readUshort = new ushort[4];
+// This will read 4 ushort
+spiDevice.Read(readUshort);
+// read 1 byte
+byte readMe = spiDevice.ReadByte();
+```
+
+For full transfer, you need to have 2 arrays of the same size and perform a full duplex transfer:
+
+```csharp
+SpanByte writeBuffer = new byte[4] { 0xAA, 0xBB, 0xCC, 0x42 };
+SpanByte readBuffer = new byte[4];
+spiDevice.TransferFullDuplex(writeBuffer, readBuffer);
+// Same for ushirt arrays:
+ushort[] writeBuffer = new ushort[4] { 0xAABC, 0x00BB, 0xCC00, 0x4242 };
+ushort[] readBuffer = new ushort[4];
+spiDevice.TransferFullDuplex(writeBuffer, readBuffer);
+```
+
 ## Feedback and documentation
 
 For documentation, providing feedback, issues and finding out how to contribute please refer to the [Home repo](https://github.com/nanoframework/Home).
