@@ -2,7 +2,7 @@ trigger:
   branches:
     include: [main, develop, "release-*" ]
   paths:
-    exclude: ["*.md", .gitignore]
+    exclude: [README.md, LICENSE.md, NuGet.Config, .github_changelog_generator, .gitignore]
   tags:
     include: ["v*"]
 
@@ -33,7 +33,9 @@ steps:
 # all build, update and publish steps
 - template: azure-pipelines-templates/class-lib-build.yml@templates
   parameters:
-    sonarCloudProject: 'nanoframework_lib-System.Device.Spi'
+    sonarCloudProject: 'nanoframework_System.Device.Spi'
+    runUnitTests: true
+    unitTestRunsettings: '$(System.DefaultWorkingDirectory)\Test\SpiHardwareUnitTests\nano.runsettings'
 
 # step from template @ nf-tools repo
 # report error
