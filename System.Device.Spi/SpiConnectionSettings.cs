@@ -13,8 +13,12 @@ namespace System.Device.Spi
     public sealed class SpiConnectionSettings
     {
         private int _csLine;
-        private int _clockFrequency = 500_000; // 500 KHz
-        private int _databitLength = 8;  // 1 byte
+
+        // 500 KHz
+        private int _clockFrequency = 500_000;
+
+        // 1 byte
+        private int _databitLength = 8;  
         private SpiMode _spiMode = SpiMode.Mode0;
         private SpiSharingMode _spiSharingMode;
         private DataFlow _dataFlow = DataFlow.MsbFirst;
@@ -24,7 +28,6 @@ namespace System.Device.Spi
         /// <summary>
         /// Initializes new instance of SpiConnectionSettings.
         /// </summary>
-        /// <param name="chipSelectLine">The chip select line on which the connection will be made.</param>
 
         private SpiConnectionSettings()
         {

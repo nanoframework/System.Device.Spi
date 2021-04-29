@@ -31,7 +31,7 @@ namespace System.Device.Spi
         private object _syncLock;
 
         // For the ReadByte and WriteByte operations
-        private byte[] _bufferSingleOperation = new byte[1];
+        private readonly byte[] _bufferSingleOperation = new byte[1];
 
         /// <summary>
         /// The connection settings of a device on a SPI bus. The connection settings are immutable after the device is created
@@ -65,6 +65,18 @@ namespace System.Device.Spi
         }
 
         /// <summary>
+        /// Reads data from the SPI device.
+        /// </summary>
+        /// <param name="buffer">
+        /// The buffer to read the data from the SPI device.
+        /// The length of the buffer determines how much data to read from the SPI device.
+        /// </param>
+        public void Read(ushort[] buffer)
+        {
+            NativeTransfer(null, buffer, false);
+        }
+
+        /// <summary>
         /// Writes a byte to the SPI device.
         /// </summary>
         /// <param name="value">The byte to be written to the SPI device.</param>
@@ -72,6 +84,17 @@ namespace System.Device.Spi
         {
             _bufferSingleOperation[0] = value;
             NativeTransfer(_bufferSingleOperation, null, false);
+        }
+
+        /// <summary>
+        /// Writes data to the SPI device.
+        /// </summary>
+        /// <param name="buffer">
+        /// The buffer that contains the data to be written to the SPI device.
+        /// </param>
+        public void Write(ushort[] buffer)
+        {
+            NativeTransfer(buffer, null, false);
         }
 
         /// <summary>
@@ -90,32 +113,9 @@ namespace System.Device.Spi
         /// </summary>
         /// <param name="writeBuffer">The buffer that contains the data to be written to the SPI device.</param>
         /// <param name="readBuffer">The buffer to read the data from the SPI device.</param>
-        public void TransferFullDuplex(SpanByte writeBuffer, SpanByte readBuffer)
+        public void TransferFullDuplex(ushort[] writeBuffer, ushort[] readBuffer)
         {
             NativeTransfer(writeBuffer, readBuffer, true);
-        }
-
-        /// <summary>
-        /// Reads data from the SPI device.
-        /// </summary>
-        /// <param name="buffer">
-        /// The buffer to read the data from the SPI device.
-        /// The length of the buffer determines how much data to read from the SPI device.
-        /// </param>
-        public void Read(ushort[] buffer)
-        {
-            NativeTransfer(null, buffer, false);
-        }
-
-        /// <summary>
-        /// Writes data to the SPI device.
-        /// </summary>
-        /// <param name="buffer">
-        /// The buffer that contains the data to be written to the SPI device.
-        /// </param>
-        public void Write(ushort[] buffer)
-        {
-            NativeTransfer(buffer, null, false);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace System.Device.Spi
         /// </summary>
         /// <param name="writeBuffer">The buffer that contains the data to be written to the SPI device.</param>
         /// <param name="readBuffer">The buffer to read the data from the SPI device.</param>
-        public void TransferFullDuplex(ushort[] writeBuffer, ushort[] readBuffer)
+        public void TransferFullDuplex(SpanByte writeBuffer, SpanByte readBuffer)
         {
             NativeTransfer(writeBuffer, readBuffer, true);
         }
@@ -139,17 +139,17 @@ namespace System.Device.Spi
         }
 
         /// <summary>
-        /// Creates a communications channel to a device on a SPI bus running on the current hardware
+        /// Creates a communications channel to a device on a SPI bus running on the current hardware.
         /// </summary>
         /// <param name="settings">The connection settings of a device on a SPI bus.</param>
-        /// <returns>A communications channel to a device on a SPI bus running on Windows 10 IoT.</returns>
+        /// <returns>A communications channel to a device on a SPI bus.</returns>
         public static SpiDevice Create(SpiConnectionSettings settings)
         {
             return new SpiDevice(settings);
         }
 
         /// <summary>
-        /// Creates a communications channel to a device on a SPI bus running on the current hardware
+        /// Creates a communications channel to a device on a SPI bus running on the current hardware.
         /// </summary>
         /// <param name="settings">The connection settings of a device on a SPI bus.</param>
         public SpiDevice(SpiConnectionSettings settings)
@@ -166,14 +166,11 @@ namespace System.Device.Spi
                 //   Device(chip select) already in use
                 throw new SpiDeviceAlreadyInUseException();
             }
-            catch (Exception ex)
-            {
-                // ArgumentException
-                //   Invalid port or unable to init bus
-                // IndexOutOfRangeException
-                //   Too many devices open or spi already in use
-                throw ex;
-            }
+            // these can also be thrown bt the native driver
+            // ArgumentException
+            //   Invalid port or unable to init bus
+            // IndexOutOfRangeException
+            //   Too many devices open or spi already in use
 
             // device doesn't exist, create it...
             _connectionSettings = new SpiConnectionSettings(settings);
@@ -211,6 +208,7 @@ namespace System.Device.Spi
             }
         }
 
+        /// <inheritdoc/>
         ~SpiDevice()
         {
             Dispose(false);
