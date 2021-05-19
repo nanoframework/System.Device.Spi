@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.30...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.32...HEAD)
+
+**Documentation and other chores:**
+
+- Bumps nanoFramework.CoreLibrary from 1.10.4-preview.4 to 1.10.4-preview.6 [\#7](https://github.com/nanoframework/System.Device.Spi/pull/7)
+
+## [v1.0.0-preview.32](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.0-preview.32) (2021-05-15)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.30...v1.0.0-preview.32)
 
 **Documentation and other chores:**
 
