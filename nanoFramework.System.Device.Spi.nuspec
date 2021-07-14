@@ -21,7 +21,7 @@ This package requires a target with System.Device.Spi v$nativeVersion$ (checksum
     <summary>System.Device.Spi assembly for .NET nanoFramework C# projects</summary>
     <tags>nanoFramework C# csharp netmf netnf System.Device.Spi</tags>
     <dependencies>
-      <dependency id="nanoFramework.CoreLibrary" version="1.10.5-preview.18" />
+      <dependency id="nanoFramework.CoreLibrary" version="1.10.5" />
     </dependencies>
   </metadata>
   <files>
