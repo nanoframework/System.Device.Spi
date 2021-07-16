@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.1...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.2-preview.3...HEAD)
+
+**Fixed bugs:**
+
+- Fix chip select default value [\#38](https://github.com/nanoframework/System.Device.Spi/pull/38)
+
+## [v1.0.2-preview.3](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.2-preview.3) (2021-07-16)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.1...v1.0.2-preview.3)
 
 **Documentation and other chores:**
 
