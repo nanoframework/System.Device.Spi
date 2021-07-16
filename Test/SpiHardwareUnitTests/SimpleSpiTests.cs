@@ -24,7 +24,7 @@ namespace SpiHardwareUnitTests
             {
                 // Note: the ChipSelect pin should be adjusted to your device
                 _connectinSettings = new SpiConnectionSettings(1, 12);
-                _spiDevice = SpiDevice.Create(_connectinSettings);                
+                _spiDevice = SpiDevice.Create(_connectinSettings);
             }
             catch (Exception)
             {
@@ -125,7 +125,7 @@ namespace SpiHardwareUnitTests
             Debug.WriteLine($"{nameof(spiBusInfo.MaxClockFrequency)}: {spiBusInfo.MaxClockFrequency}");
             Debug.WriteLine($"{nameof(spiBusInfo.MinClockFrequency)}: {spiBusInfo.MinClockFrequency}");
             Debug.WriteLine($"{nameof(spiBusInfo.SupportedDataBitLengths)}: ");
-            foreach(var data in spiBusInfo.SupportedDataBitLengths)
+            foreach (var data in spiBusInfo.SupportedDataBitLengths)
             {
                 Debug.WriteLine($"  {data}");
             }
