@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.75...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.77...HEAD)
+
+**Documentation and other chores:**
+
+- Update 2 nuget dependencies [\#35](https://github.com/nanoframework/System.Device.Spi/pull/35)
+
+## [v1.0.0-preview.77](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.0-preview.77) (2021-07-15)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.75...v1.0.0-preview.77)
 
 **Documentation and other chores:**
 
