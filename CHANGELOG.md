@@ -1,8 +1,8 @@
 # Changelog
 
-## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
+## [v1.0.0-preview.80](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.0-preview.80) (2021-07-16)
 
-[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.77...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.77...v1.0.0-preview.80)
 
 **Documentation and other chores:**
 
