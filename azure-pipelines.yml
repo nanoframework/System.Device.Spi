@@ -7,6 +7,8 @@ trigger:
     include: ["v*"]
 
 # PR always trigger build
+pr:
+  autoCancel: true
 
 # add nf-tools repo to resources (for Azure Pipelines templates)
 resources:
@@ -21,7 +23,7 @@ pool:
 
 variables:
   DOTNET_NOLOGO: true
-  solution: 'System.Device.Spi.sln'
+  solution: 'nanoFramework.System.Device.Spi.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   nugetPackageName: 'nanoFramework.System.Device.Spi'
