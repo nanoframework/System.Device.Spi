@@ -1,7 +1,5 @@
 # Changelog
 
-## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
-
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.2-preview.27...HEAD)
 
 **Documentation and other chores:**
