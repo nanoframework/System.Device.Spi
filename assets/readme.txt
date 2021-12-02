@@ -6,7 +6,7 @@
                                                                                
 ===================================================================================
 
-API docs: https://docs.nanoframework.net/api
+API docs: https://docs.nanoframework.net/api/System.Device.Spi
 
 Browse our samples repository: https://github.com/nanoframework/samples
 
