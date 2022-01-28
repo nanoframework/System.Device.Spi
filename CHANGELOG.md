@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.3-preview.9...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.3-preview.11...HEAD)
+
+**Fixed bugs:**
+
+- Remove ChipSelect default value in SpiConectionSettings [\#59](https://github.com/nanoframework/System.Device.Spi/pull/59)
+
+## [v1.0.3-preview.11](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.3-preview.11) (2022-01-22)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.3-preview.9...v1.0.3-preview.11)
 
 **Documentation and other chores:**
 
