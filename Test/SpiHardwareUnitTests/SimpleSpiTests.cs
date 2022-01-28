@@ -36,8 +36,7 @@ namespace SpiHardwareUnitTests
         public void CheckSpiConectionSettings()
         {
             // Arrange
-            SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1);
-            connectinSettings.ChipSelectLine = 12;
+            SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1, 12);
             connectinSettings.ChipSelectLineActiveState = PinValue.High;
             connectinSettings.ClockFrequency = 1_000_000;
             connectinSettings.DataBitLength = 8;
