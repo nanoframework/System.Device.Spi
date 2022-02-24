@@ -40,14 +40,8 @@ To get the default bus values, especially the bus min and max frequencies, the m
 
 ```csharp
 SpiBusInfo spiBusInfo = SpiDevice.GetBusInfo(1);
-Debug.WriteLine($"{nameof(spiBusInfo.ChipSelectLineCount)}: {spiBusInfo.ChipSelectLineCount}");
 Debug.WriteLine($"{nameof(spiBusInfo.MaxClockFrequency)}: {spiBusInfo.MaxClockFrequency}");
 Debug.WriteLine($"{nameof(spiBusInfo.MinClockFrequency)}: {spiBusInfo.MinClockFrequency}");
-Debug.WriteLine($"{nameof(spiBusInfo.SupportedDataBitLengths)}: ");
-foreach(var data in spiBusInfo.SupportedDataBitLengths)
-{
-    Debug.WriteLine($"  {data}");
-}
 ```
 
 ### Reading and Writing

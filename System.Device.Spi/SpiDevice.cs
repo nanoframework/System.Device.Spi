@@ -133,6 +133,7 @@ namespace System.Device.Spi
         /// </summary>
         /// <param name="busId">The id of the bus.</param>
         /// <returns>The bus info requested.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If the <paramref name="busId"/> is not available in the device.</exception>
         public static SpiBusInfo GetBusInfo(int busId)
         {
             return new SpiBusInfo(busId);
