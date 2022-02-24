@@ -8,28 +8,16 @@ using System.Runtime.CompilerServices;
 namespace System.Device.Spi
 {
     /// <summary>
-    /// Represents the info about a SPI bus.
+    /// Base class for SPI bus information.
     /// </summary>
     public sealed class SpiBusInfo
     {
         [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
-        private int _controllerId;
+        private readonly int _controllerId;
 
         internal SpiBusInfo(int spiBus)
         {
             _controllerId = spiBus;
-
-        }
-
-        /// <summary>
-        /// Gets the number of chip select lines available on the bus.
-        /// </summary>
-        /// <value>
-        /// Number of chip select lines.
-        /// </value>
-        public int ChipSelectLineCount
-        {
-            get { return NativeChipSelectLineCount(); }
         }
 
         /// <summary>
@@ -38,10 +26,7 @@ namespace System.Device.Spi
         /// <value>
         /// The clock cycle in Hz.
         /// </value>
-        public int MaxClockFrequency
-        {
-            get { return NativeMaxClockFrequency(); }
-        }
+        public int MaxClockFrequency => NativeMaxClockFrequency();
 
         /// <summary>
         /// Minimum clock cycle frequency of the bus.
@@ -49,30 +34,9 @@ namespace System.Device.Spi
         /// <value>
         /// The clock cycle in Hz.
         /// </value>
-        public int MinClockFrequency
-        {
-            get { return NativeMinClockFrequency(); }
-        }
-
-        /// <summary>
-        /// Gets the bit lengths that can be used on the bus for transmitting data.
-        /// </summary>
-        /// <value>
-        /// The supported data lengths.
-        /// </value>
-        public int[] SupportedDataBitLengths
-        {
-            get
-            {
-                return new[] { 8, 16 };
-            }
-        }
+        public int MinClockFrequency => NativeMinClockFrequency();
 
         #region Native Calls
-
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private extern int NativeChipSelectLineCount();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         private extern int NativeMaxClockFrequency();
@@ -80,11 +44,6 @@ namespace System.Device.Spi
         [MethodImpl(MethodImplOptions.InternalCall)]
         private extern int NativeMinClockFrequency();
 
-
         #endregion
-
-
-
-
     }
 }
