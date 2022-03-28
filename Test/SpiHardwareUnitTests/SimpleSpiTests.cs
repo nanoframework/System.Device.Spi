@@ -36,8 +36,7 @@ namespace SpiHardwareUnitTests
         public void CheckSpiConectionSettings()
         {
             // Arrange
-            SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1);
-            connectinSettings.ChipSelectLine = 12;
+            SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1, 12);
             connectinSettings.ChipSelectLineActiveState = PinValue.High;
             connectinSettings.ClockFrequency = 1_000_000;
             connectinSettings.DataBitLength = 8;
@@ -117,18 +116,13 @@ namespace SpiHardwareUnitTests
         }
 
         [TestMethod]
-        public void SpiBusInfo()
+        public void SpiBusInfo_Tests()
         {
             // Arrange
             SpiBusInfo spiBusInfo = SpiDevice.GetBusInfo(1);
-            Debug.WriteLine($"{nameof(spiBusInfo.ChipSelectLineCount)}: {spiBusInfo.ChipSelectLineCount}");
+
             Debug.WriteLine($"{nameof(spiBusInfo.MaxClockFrequency)}: {spiBusInfo.MaxClockFrequency}");
             Debug.WriteLine($"{nameof(spiBusInfo.MinClockFrequency)}: {spiBusInfo.MinClockFrequency}");
-            Debug.WriteLine($"{nameof(spiBusInfo.SupportedDataBitLengths)}: ");
-            foreach (var data in spiBusInfo.SupportedDataBitLengths)
-            {
-                Debug.WriteLine($"  {data}");
-            }
         }
 
         [TestMethod]
