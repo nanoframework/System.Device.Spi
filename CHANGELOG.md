@@ -1,6 +1,6 @@
 # Changelog
 
-## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
+## [v1.0.2-preview.31](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.2-preview.31) (2021-12-02)
 
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.4-preview.11...HEAD)
 
