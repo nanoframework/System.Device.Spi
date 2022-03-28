@@ -1,8 +1,8 @@
 # Changelog
 
-## [v1.0.2-preview.31](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.2-preview.31) (2021-12-02)
+## [v1.0.4-preview.14](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.4-preview.14) (2022-03-28)
 
-[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.4-preview.11...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.4-preview.11...v1.0.4-preview.14)
 
 **Documentation and other chores:**
 
