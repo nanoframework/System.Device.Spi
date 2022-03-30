@@ -10,8 +10,7 @@
 
 | Component | Build Status | NuGet Package |
 |:-|---|---|
-| System.Device.Spi | [![Build Status](https://dev.azure.com/nanoframework/System.Device.Spi/_apis/build/status/nanoframework.System.Device.Spi?branchName=develop)](https://dev.azure.com/nanoframework/System.Device.Spi/_build/latest?definitionId=72&branchName=main) | [![NuGet](https://img.shields.io/nuget/v/nanoFramework.System.Device.Spi.svg?label=NuGet&style=flat&logo=nuget)](https://www.nuget.org/packages/nanoFramework.System.Device.Spi/) |
-| System.Device.Spi (preview) | [![Build Status](https://dev.azure.com/nanoframework/System.Device.Spi/_apis/build/status/nanoframework.System.Device.Spi?branchName=develop)](https://dev.azure.com/nanoframework/System.Device.Spi/_build/latest?definitionId=72&branchName=develop) | [![NuGet](https://img.shields.io/nuget/vpre/nanoFramework.System.Device.Spi.svg?label=NuGet&style=flat&logo=nuget)](https://www.nuget.org/packages/nanoFramework.System.Device.Spi/) |
+| System.Device.Spi | [![Build Status](https://dev.azure.com/nanoframework/System.Device.Spi/_apis/build/status/nanoframework.System.Device.Spi?repoName=nanoframework%2FSystem.Device.Spi&branchName=main)](https://dev.azure.com/nanoframework/System.Device.Spi/_build/latest?definitionId=72&repoName=nanoframework%2FSystem.Device.Spi&branchName=main) | [![NuGet](https://img.shields.io/nuget/v/nanoFramework.System.Device.Spi.svg?label=NuGet&style=flat&logo=nuget)](https://www.nuget.org/packages/nanoFramework.System.Device.Spi/) |
 
 ## Usage
 
