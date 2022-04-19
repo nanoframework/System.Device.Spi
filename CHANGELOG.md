@@ -1,5 +1,26 @@
 # Changelog
 
+## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.5...HEAD)
+
+**Implemented enhancements:**
+
+- Add support for bus configuration [\#80](https://github.com/nanoframework/System.Device.Spi/pull/80)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#79](https://github.com/nanoframework/System.Device.Spi/pull/79)
+- Update 1 NuGet dependencies [\#78](https://github.com/nanoframework/System.Device.Spi/pull/78)
+
+## [v1.0.5](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.5) (2022-03-29)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.5-preview.5...v1.0.5)
+
+**Documentation and other chores:**
+
+- release-v1.0.5 [\#77](https://github.com/nanoframework/System.Device.Spi/pull/77)
+
 ## [v1.0.5-preview.5](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.5-preview.5) (2022-03-29)
 
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.5-preview.3...v1.0.5-preview.5)
@@ -19,6 +40,10 @@
 ## [v1.0.4](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.4) (2022-03-28)
 
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.4-preview.14...v1.0.4)
+
+**Documentation and other chores:**
+
+- release-v1.0.4 [\#74](https://github.com/nanoframework/System.Device.Spi/pull/74)
 
 ## [v1.0.4-preview.14](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.4-preview.14) (2022-03-28)
 
@@ -173,6 +198,10 @@
 
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.2-preview.31...v1.0.2)
 
+**Documentation and other chores:**
+
+- release-v1.0.2 [\#52](https://github.com/nanoframework/System.Device.Spi/pull/52)
+
 ## [v1.0.2-preview.31](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.2-preview.31) (2021-12-02)
 
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.2-preview.29...v1.0.2-preview.31)
@@ -270,6 +299,10 @@
 ## [v1.0.1](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.1) (2021-07-16)
 
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.0-preview.80...v1.0.1)
+
+**Documentation and other chores:**
+
+- release-v1.0.1 [\#36](https://github.com/nanoframework/System.Device.Spi/pull/36)
 
 ## [v1.0.0-preview.80](https://github.com/nanoframework/System.Device.Spi/tree/v1.0.0-preview.80) (2021-07-16)
 
