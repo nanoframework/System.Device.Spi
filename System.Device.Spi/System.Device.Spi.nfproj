@@ -48,6 +48,7 @@
     <Compile Include="SpiDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpiDeviceAlreadyInUseException.cs" />
+    <Compile Include="SpiBusConfiguration.cs" />
     <Compile Include="SpiMode.cs" />
     <Compile Include="SpiSharingMode.cs" />
   </ItemGroup>

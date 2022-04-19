@@ -25,6 +25,8 @@ namespace System.Device.Spi
         private int _busId;
         // Default is active low
         private int _chipSelectLineActiveState = 0;
+        // default is full duplex (4-wires)
+        private SpiBusConfiguration _busConfiguration = SpiBusConfiguration.FullDuplex;
 
         /// <summary>
         /// Initializes new instance of SpiConnectionSettings.
@@ -55,6 +57,7 @@ namespace System.Device.Spi
             ClockFrequency = other.ClockFrequency;
             DataFlow = other.DataFlow;
             ChipSelectLineActiveState = other.ChipSelectLineActiveState;
+
             SharingMode = other.SharingMode;
         }
 
@@ -155,6 +158,22 @@ namespace System.Device.Spi
             set
             {
                 _spiSharingMode = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the SPI bus configuration.
+        /// </summary>
+        /// <remarks>
+        /// Default value is <see cref="SpiBusConfiguration.FullDuplex"/>.
+        /// </remarks>
+        public SpiBusConfiguration Configuration
+        {
+            get => _busConfiguration;
+
+            set
+            {
+                _busConfiguration = value;
             }
         }
     }

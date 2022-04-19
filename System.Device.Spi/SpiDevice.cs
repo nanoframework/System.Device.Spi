@@ -113,8 +113,16 @@ namespace System.Device.Spi
         /// </summary>
         /// <param name="writeBuffer">The buffer that contains the data to be written to the SPI device.</param>
         /// <param name="readBuffer">The buffer to read the data from the SPI device.</param>
-        public void TransferFullDuplex(ushort[] writeBuffer, ushort[] readBuffer)
+        /// <exception cref="InvalidOperationException">If the <see cref="ConnectionSettings"/> for this <see cref="SpiDevice"/> aren't configured for <see cref="SpiBusConfiguration.FullDuplex"/>.</exception>
+        public void TransferFullDuplex(
+            ushort[] writeBuffer,
+            ushort[] readBuffer)
         {
+            if (_connectionSettings.Configuration != SpiBusConfiguration.FullDuplex)
+            {
+                throw new InvalidOperationException();
+            }
+
             NativeTransfer(writeBuffer, readBuffer, true);
         }
 
@@ -123,8 +131,16 @@ namespace System.Device.Spi
         /// </summary>
         /// <param name="writeBuffer">The buffer that contains the data to be written to the SPI device.</param>
         /// <param name="readBuffer">The buffer to read the data from the SPI device.</param>
-        public void TransferFullDuplex(SpanByte writeBuffer, SpanByte readBuffer)
+        /// <exception cref="InvalidOperationException">If the <see cref="ConnectionSettings"/> for this <see cref="SpiDevice"/> aren't configured for <see cref="SpiBusConfiguration.FullDuplex"/>.</exception>
+        public void TransferFullDuplex(
+            SpanByte writeBuffer,
+            SpanByte readBuffer)
         {
+            if (_connectionSettings.Configuration != SpiBusConfiguration.FullDuplex)
+            {
+                throw new InvalidOperationException();
+            }
+
             NativeTransfer(writeBuffer, readBuffer, true);
         }
 
