@@ -20,7 +20,6 @@ namespace System.Device.Spi
         // 1 byte
         private int _databitLength = 8;
         private SpiMode _spiMode = SpiMode.Mode0;
-        private SpiSharingMode _spiSharingMode;
         private DataFlow _dataFlow = DataFlow.MsbFirst;
         private int _busId;
         // Default is active low
@@ -55,8 +54,6 @@ namespace System.Device.Spi
             ClockFrequency = other.ClockFrequency;
             DataFlow = other.DataFlow;
             ChipSelectLineActiveState = other.ChipSelectLineActiveState;
-
-            SharingMode = other.SharingMode;
         }
 
         /// <summary>
@@ -144,19 +141,6 @@ namespace System.Device.Spi
         {
             get => _chipSelectLineActiveState;
             set => _chipSelectLineActiveState = value == PinValue.Low ? 0 : 1;
-        }
-
-        /// <summary>
-        /// Gets or sets the sharing mode for the SPI connection.
-        /// </summary>
-        public SpiSharingMode SharingMode
-        {
-            get => _spiSharingMode;
-
-            set
-            {
-                _spiSharingMode = value;
-            }
         }
 
         /// <summary>

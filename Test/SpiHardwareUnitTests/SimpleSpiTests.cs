@@ -42,7 +42,6 @@ namespace SpiHardwareUnitTests
             connectinSettings.DataBitLength = 8;
             connectinSettings.DataFlow = DataFlow.LsbFirst;
             connectinSettings.Mode = SpiMode.Mode2;
-            connectinSettings.SharingMode = SpiSharingMode.Exclusive;
 
             // Assert
             Assert.Equal(12, connectinSettings.ChipSelectLine);
@@ -51,7 +50,6 @@ namespace SpiHardwareUnitTests
             Assert.Equal(8, connectinSettings.DataBitLength);
             Assert.True(DataFlow.LsbFirst == connectinSettings.DataFlow);
             Assert.True(SpiMode.Mode2 == connectinSettings.Mode);
-            Assert.True(SpiSharingMode.Exclusive == connectinSettings.SharingMode);
         }
 
         [TestMethod]
