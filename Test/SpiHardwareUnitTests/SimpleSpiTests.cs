@@ -33,7 +33,7 @@ namespace SpiHardwareUnitTests
         }
 
         [TestMethod]
-        public void CheckSpiConectionSettings()
+        public void CheckSpiConectionSettings_00()
         {
             // Arrange
             SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1, 12);
@@ -52,6 +52,22 @@ namespace SpiHardwareUnitTests
             Assert.True(DataFlow.LsbFirst == connectinSettings.DataFlow);
             Assert.True(SpiMode.Mode2 == connectinSettings.Mode);
             Assert.True(SpiSharingMode.Exclusive == connectinSettings.SharingMode);
+        }
+
+        [TestMethod]
+        public void CheckSpiConectionSettings_01()
+        {
+            // Arrange
+            SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1);
+            connectinSettings.ClockFrequency = 1_000_000;
+            connectinSettings.DataBitLength = 16;
+
+            // Assert
+            Assert.Equal(-1, connectinSettings.ChipSelectLine);
+            Assert.Equal(1_000_000, connectinSettings.ClockFrequency);
+            Assert.Equal(8, connectinSettings.DataBitLength);
+            Assert.True(DataFlow.MsbFirst == connectinSettings.DataFlow);
+            Assert.True(SpiMode.Mode0 == connectinSettings.Mode);
         }
 
         [TestMethod]

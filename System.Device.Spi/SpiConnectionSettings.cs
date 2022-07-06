@@ -18,7 +18,7 @@ namespace System.Device.Spi
         private int _clockFrequency = 500_000;
 
         // 1 byte
-        private int _databitLength = 8;  
+        private int _databitLength = 8;
         private SpiMode _spiMode = SpiMode.Mode0;
         private SpiSharingMode _spiSharingMode;
         private DataFlow _dataFlow = DataFlow.MsbFirst;
@@ -29,9 +29,8 @@ namespace System.Device.Spi
         private SpiBusConfiguration _busConfiguration = SpiBusConfiguration.FullDuplex;
 
         /// <summary>
-        /// Initializes new instance of SpiConnectionSettings.
+        /// Initializes new instance of <see cref="SpiConnectionSettings"/>.
         /// </summary>
-
         private SpiConnectionSettings()
         {
         }
@@ -40,9 +39,8 @@ namespace System.Device.Spi
         /// Initializes a new instance of the <see cref="SpiConnectionSettings"/> class.
         /// </summary>
         /// <param name="busId">The bus ID the device is connected to.</param>
-        /// <param name="chipSelectLine">The chip select line used on the bus. In .NET nanoFramework, you need to have a
-        /// valid GPIO Chip Select even if you don't use it.</param>
-        public SpiConnectionSettings(int busId, int chipSelectLine)
+        /// <param name="chipSelectLine">The chip select line used on the bus. Optional, -1 if not used.</param>
+        public SpiConnectionSettings(int busId, int chipSelectLine = -1)
         {
             BusId = busId;
             ChipSelectLine = chipSelectLine;
