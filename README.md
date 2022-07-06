@@ -25,6 +25,8 @@ connectionSettings = new SpiConnectionSettings(1, 12);
 spiDevice = SpiDevice.Create(connectionSettings);
 ```
 
+If you'll be controlling the state of the Chip Select line, you need to pass `-1` to the second parameter of `SpiConnectionSettings(...)`. When specifying a GPIO number the driver takes care of this for you by setting the appropriate state for the signal during the SPI transactions.
+
 ### SpiConnectionSettings and SpiBusInfo
 
 The `SpiConnectionSettings` contains the key elements needed to setup properly the hardware SPI device. Once created, those elements can't be adjusted.

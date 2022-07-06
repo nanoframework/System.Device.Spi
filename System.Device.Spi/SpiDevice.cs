@@ -3,6 +3,7 @@
 // See LICENSE file in the project root for full license information.
 //
 
+using System;
 using System.Runtime.CompilerServices;
 
 namespace System.Device.Spi
@@ -169,6 +170,17 @@ namespace System.Device.Spi
         /// Creates a communications channel to a device on a SPI bus running on the current hardware.
         /// </summary>
         /// <param name="settings">The connection settings of a device on a SPI bus.</param>
+        /// <exception cref="ArgumentException">
+        /// <para><see cref="SpiConnectionSettings.ChipSelectLine"/> is not valid.</para>
+        /// <para>- or -</para>
+        /// <para>The specified <see cref="SpiConnectionSettings.BusId"/> is not available.</para>
+        /// <para>- or -</para>
+        /// <para>One, or more of the GPIOs for the SPI bus are already used.</para>
+        /// <para>- or -</para>
+        /// <para>Some other invalid property in the specified <see cref="SpiConnectionSettings"/>.</para>
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Maximum number of SPI devices for the specified bus has been reached.</exception>
+        /// <exception cref="SpiDeviceAlreadyInUseException">If <see cref="SpiConnectionSettings.ChipSelectLine"/> it's already in use.</exception>
         public SpiDevice(SpiConnectionSettings settings)
         {
             try
