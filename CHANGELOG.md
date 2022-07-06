@@ -1,5 +1,24 @@
 # Changelog
 
+## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.2.1...HEAD)
+
+**Implemented enhancements:**
+
+- Chip Select is now optional in SpiConnectionSettings [\#84](https://github.com/nanoframework/System.Device.Spi/pull/84)
+
+**Documentation and other chores:**
+
+- Remove SharingMode from SpiConnectionSettings [\#85](https://github.com/nanoframework/System.Device.Spi/pull/85)
+- Update 1 NuGet dependencies [\#83](https://github.com/nanoframework/System.Device.Spi/pull/83)
+- Update 1 NuGet dependencies [\#82](https://github.com/nanoframework/System.Device.Spi/pull/82)
+- Update 1 NuGet dependencies [\#81](https://github.com/nanoframework/System.Device.Spi/pull/81)
+
+## [v1.2.1](https://github.com/nanoframework/System.Device.Spi/tree/v1.2.1) (2022-04-25)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.1.1...v1.2.1)
+
 ## [v1.1.1](https://github.com/nanoframework/System.Device.Spi/tree/v1.1.1) (2022-04-21)
 
 [Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.0.5...v1.1.1)
