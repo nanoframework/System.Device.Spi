@@ -36,36 +36,68 @@ namespace SpiHardwareUnitTests
         public void CheckSpiConectionSettings_00()
         {
             // Arrange
-            SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1, 12);
-            connectinSettings.ChipSelectLineActiveState = PinValue.High;
-            connectinSettings.ClockFrequency = 1_000_000;
-            connectinSettings.DataBitLength = 8;
-            connectinSettings.DataFlow = DataFlow.LsbFirst;
-            connectinSettings.Mode = SpiMode.Mode2;
+            SpiConnectionSettings connectionSettings = new SpiConnectionSettings(1, 12);
+            connectionSettings.ChipSelectLineActiveState = PinValue.High;
+            connectionSettings.ClockFrequency = 1_000_000;
+            connectionSettings.DataBitLength = 8;
+            connectionSettings.DataFlow = DataFlow.LsbFirst;
+            connectionSettings.Mode = SpiMode.Mode2;
+            connectionSettings.Configuration = SpiBusConfiguration.HalfDuplex;
+
 
             // Assert
-            Assert.Equal(12, connectinSettings.ChipSelectLine);
-            Assert.True(PinValue.High == connectinSettings.ChipSelectLineActiveState);
-            Assert.Equal(1_000_000, connectinSettings.ClockFrequency);
-            Assert.Equal(8, connectinSettings.DataBitLength);
-            Assert.True(DataFlow.LsbFirst == connectinSettings.DataFlow);
-            Assert.True(SpiMode.Mode2 == connectinSettings.Mode);
+            Assert.Equal(12, connectionSettings.ChipSelectLine);
+            Assert.True(PinValue.High == connectionSettings.ChipSelectLineActiveState);
+            Assert.Equal(1_000_000, connectionSettings.ClockFrequency);
+            Assert.Equal(8, connectionSettings.DataBitLength);
+            Assert.True(DataFlow.LsbFirst == connectionSettings.DataFlow);
+            Assert.True(SpiMode.Mode2 == connectionSettings.Mode);
+            Assert.Equal(1, connectionSettings.BusId);
+            Assert.Equal((int)SpiBusConfiguration.HalfDuplex, (int)connectionSettings.Configuration);
         }
 
         [TestMethod]
         public void CheckSpiConectionSettings_01()
         {
             // Arrange
-            SpiConnectionSettings connectinSettings = new SpiConnectionSettings(1);
-            connectinSettings.ClockFrequency = 1_000_000;
-            connectinSettings.DataBitLength = 16;
+            SpiConnectionSettings connectionSettings = new SpiConnectionSettings(1);
+            connectionSettings.ClockFrequency = 1_000_000;
+            connectionSettings.DataBitLength = 16;
 
             // Assert
-            Assert.Equal(-1, connectinSettings.ChipSelectLine);
-            Assert.Equal(1_000_000, connectinSettings.ClockFrequency);
-            Assert.Equal(8, connectinSettings.DataBitLength);
-            Assert.True(DataFlow.MsbFirst == connectinSettings.DataFlow);
-            Assert.True(SpiMode.Mode0 == connectinSettings.Mode);
+            Assert.Equal(-1, connectionSettings.ChipSelectLine);
+            Assert.Equal(1_000_000, connectionSettings.ClockFrequency);
+            Assert.Equal(8, connectionSettings.DataBitLength);
+            Assert.True(DataFlow.MsbFirst == connectionSettings.DataFlow);
+            Assert.True(SpiMode.Mode0 == connectionSettings.Mode);
+            Assert.Equal(1, connectionSettings.BusId);
+            Assert.Equal((int)SpiBusConfiguration.FullDuplex, (int)connectionSettings.Configuration);
+        }
+
+
+        [TestMethod]
+        public void CheckSpiConectionSettingsClone()
+        {
+            SpiConnectionSettings connectionSettings = new SpiConnectionSettings(1, 12);
+            connectionSettings.ChipSelectLineActiveState = PinValue.High;
+            connectionSettings.ClockFrequency = 1_000_000;
+            connectionSettings.DataBitLength = 8;
+            connectionSettings.DataFlow = DataFlow.LsbFirst;
+            connectionSettings.Mode = SpiMode.Mode2;
+            connectionSettings.Configuration = SpiBusConfiguration.HalfDuplex;
+
+            // clone SpiConnectionSettings
+            var connectionSettingsClone = new SpiConnectionSettings(connectionSettings);
+
+            // now compare all properties
+            Assert.Equal(connectionSettingsClone.ChipSelectLine, connectionSettings.ChipSelectLine);
+            Assert.True(connectionSettingsClone.ChipSelectLineActiveState == connectionSettings.ChipSelectLineActiveState);
+            Assert.Equal(connectionSettingsClone.ClockFrequency, connectionSettings.ClockFrequency);
+            Assert.Equal(connectionSettingsClone.DataBitLength, connectionSettings.DataBitLength);
+            Assert.True(connectionSettingsClone.DataFlow == connectionSettings.DataFlow);
+            Assert.True(connectionSettingsClone.Mode == connectionSettings.Mode);
+            Assert.Equal(connectionSettingsClone.BusId, connectionSettings.BusId);
+            Assert.Equal((int)connectionSettingsClone.Configuration, (int)connectionSettings.Configuration);
         }
 
         [TestMethod]

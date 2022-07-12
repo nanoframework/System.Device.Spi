@@ -54,6 +54,7 @@ namespace System.Device.Spi
             ClockFrequency = other.ClockFrequency;
             DataFlow = other.DataFlow;
             ChipSelectLineActiveState = other.ChipSelectLineActiveState;
+            Configuration = other.Configuration;
         }
 
         /// <summary>
