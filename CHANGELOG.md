@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Device.Spi/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.2.1...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.3.2...HEAD)
+
+**Fixed bugs:**
+
+- Fix SpiConnectionSettings cloning [\#86](https://github.com/nanoframework/System.Device.Spi/pull/86)
+
+## [v1.3.2](https://github.com/nanoframework/System.Device.Spi/tree/v1.3.2) (2022-07-06)
+
+[Full Changelog](https://github.com/nanoframework/System.Device.Spi/compare/v1.2.1...v1.3.2)
 
 **Implemented enhancements:**
 
