@@ -26,6 +26,15 @@
   <PropertyGroup>
     <RunSettingsFilePath>$(MSBuildProjectDirectory)\nano.runsettings</RunSettingsFilePath>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\System.Device.Spi\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>  
   <ItemGroup>
     <Compile Include="SimpleSpiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
