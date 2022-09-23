@@ -16,15 +16,15 @@
       },
       "nanoFramework.System.Device.Gpio": {
         "type": "Direct",
-        "requested": "[1.1.11, 1.1.11]",
-        "resolved": "1.1.11",
-        "contentHash": "UhEJuox9ZejyfVCJToohE+DcYf/zV2q00/7xlk1PFldDZSus/47HKWCGoXkkRaU72Le14CFRf+xQL2JozuELLw=="
+        "requested": "[1.1.18, 1.1.18]",
+        "resolved": "1.1.18",
+        "contentHash": "XbZflvZi1i6uAzhfGVXdSH4naa2St9AbGi1r+iaC6CjXNohRUdVAaJk5wM69YcBW1Hd+7Y790TmJkeT9JtApnw=="
       },
       "Nerdbank.GitVersioning": {
         "type": "Direct",
-        "requested": "[3.5.109, 3.5.109]",
-        "resolved": "3.5.109",
-        "contentHash": "tKA1XJ5U2Ytk+u2/5sGNa04Pw6z9noYmqbpmHpjvbwJTtIalqsQjnwT4RQKSDTTIznHBbKxzv3HVh8QD28Qk+g=="
+        "requested": "[3.5.113, 3.5.113]",
+        "resolved": "3.5.113",
+        "contentHash": "4fBSMkqhi410qlkjPm+Mxfk8iO3C7dmgdVS7ljsfVO21WEzZCHP1VCOqB6rlOPfPidR/oxX+/Do/I7meCAz+Jg=="
       }
     }
   }
