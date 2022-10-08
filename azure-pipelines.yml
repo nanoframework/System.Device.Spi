@@ -50,7 +50,7 @@ steps:
   parameters:
     sonarCloudProject: 'nanoframework_System.Device.Spi'
     runUnitTests: false
-    unitTestRunsettings: '$(System.DefaultWorkingDirectory)\Test\SpiHardwareUnitTests\nano.runsettings'
+    unitTestRunsettings: '$(System.DefaultWorkingDirectory)\.runsettings'
 
 # step from template @ nf-tools repo
 # report error

@@ -9,6 +9,7 @@ Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "SpiHardwareUnitTests", "Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F590E4F6-965B-4148-8482-B1B746073606}"
 	ProjectSection(SolutionItems) = preProject
+		.runsettings = .runsettings
 		nanoFramework.System.Device.Spi.nuspec = nanoFramework.System.Device.Spi.nuspec
 		README.md = README.md
 		version.json = version.json
