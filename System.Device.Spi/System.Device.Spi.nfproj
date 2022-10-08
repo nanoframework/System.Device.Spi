@@ -19,7 +19,6 @@
     <NF_IsCoreLibrary>True</NF_IsCoreLibrary>
     <DocumentationFile>bin\$(Configuration)\System.Device.Spi.xml</DocumentationFile>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode Condition="'$(TF_BUILD)' == 'True' or '$(ContinuousIntegrationBuild)' == 'True'">true</RestoreLockedMode>
   </PropertyGroup>
   <PropertyGroup>
