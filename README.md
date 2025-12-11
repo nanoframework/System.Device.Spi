@@ -47,14 +47,14 @@ Debug.WriteLine($"{nameof(spiBusInfo.MinClockFrequency)}: {spiBusInfo.MinClockFr
 
 ### Reading and Writing
 
-You can read, write and do a full transfer. You have the opportunity to use either a `SpanByte`, either a `ushort` array. 
+You can read, write and do a full transfer. You have the opportunity to use either a `Span<byte>`, either a `ushort` array. 
 
-**Important**: in both cases, the data bit length will be automatically adjusted. So you can use both `SpanByte` and `ushort` array at the same time.
+**Important**: in both cases, the data bit length will be automatically adjusted. So you can use both `Span<byte>` and `ushort` array at the same time.
 
-You can write a `SpanByte` like this:
+You can write a `Span<byte>` like this:
 
 ```csharp
-SpanByte writeBuffer = new byte[2] { 42, 84 };
+ReadOnlySpan<byte> writeBuffer = stackalloc byte[2] { 42, 84 });
 spiDevice.Write(writeBuffer);
 ```
 
@@ -74,7 +74,7 @@ spiDevice.WriteByte(42);
 Read operations are similar:
 
 ```csharp
-SpanByte readBuffer = new byte[2];
+Span<byte> readBuffer = new Span<byte>(new byte[2]);
 // This will read 2 bytes
 spiDevice.Read(readBuffer);
 ushort[] readUshort = new ushort[4];
@@ -87,8 +87,8 @@ byte readMe = spiDevice.ReadByte();
 For full transfer, you need to have 2 arrays of the same size and perform a full duplex transfer:
 
 ```csharp
-SpanByte writeBuffer = new byte[4] { 0xAA, 0xBB, 0xCC, 0x42 };
-SpanByte readBuffer = new byte[4];
+ReadOnlySpan<byte> writeBuffer = stackalloc byte[4] { 0xAA, 0xBB, 0xCC, 0x42 };
+Span<byte> readBuffer = new byte[4];
 spiDevice.TransferFullDuplex(writeBuffer, readBuffer);
 // Same for ushirt arrays:
 ushort[] writeBuffer = new ushort[4] { 0xAABC, 0x00BB, 0xCC00, 0x4242 };

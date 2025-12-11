@@ -49,7 +49,11 @@ namespace System.Device.Spi
         /// <returns>A byte read from the SPI device.</returns>
         public byte ReadByte()
         {
-            NativeTransfer(null, _bufferSingleOperation, false);
+            NativeTransfer(
+                Span<byte>.Empty,
+                new Span<byte>(_bufferSingleOperation),
+                false);
+
             return _bufferSingleOperation[0];
         }
 
@@ -60,9 +64,12 @@ namespace System.Device.Spi
         /// The buffer to read the data from the SPI device.
         /// The length of the buffer determines how much data to read from the SPI device.
         /// </param>
-        public void Read(SpanByte buffer)
+        public void Read(Span<byte> buffer)
         {
-            NativeTransfer(null, buffer, false);
+            NativeTransfer(
+                Span<byte>.Empty,
+                buffer,
+                false);
         }
 
         /// <summary>
@@ -84,7 +91,11 @@ namespace System.Device.Spi
         public void WriteByte(byte value)
         {
             _bufferSingleOperation[0] = value;
-            NativeTransfer(_bufferSingleOperation, null, false);
+
+            NativeTransfer(
+                new Span<byte>(_bufferSingleOperation),
+                default,
+                false);
         }
 
         /// <summary>
@@ -104,9 +115,12 @@ namespace System.Device.Spi
         /// <param name="buffer">
         /// The buffer that contains the data to be written to the SPI device.
         /// </param>
-        public void Write(SpanByte buffer)
+        public void Write(ReadOnlySpan<byte> buffer)
         {
-            NativeTransfer(buffer, null, false);
+            NativeTransfer(
+                buffer,
+                default,
+                false);
         }
 
         /// <summary>
@@ -134,15 +148,18 @@ namespace System.Device.Spi
         /// <param name="readBuffer">The buffer to read the data from the SPI device.</param>
         /// <exception cref="InvalidOperationException">If the <see cref="ConnectionSettings"/> for this <see cref="SpiDevice"/> aren't configured for <see cref="SpiBusConfiguration.FullDuplex"/>.</exception>
         public void TransferFullDuplex(
-            SpanByte writeBuffer,
-            SpanByte readBuffer)
+            ReadOnlySpan<byte> writeBuffer,
+            Span<byte> readBuffer)
         {
             if (_connectionSettings.Configuration != SpiBusConfiguration.FullDuplex)
             {
                 throw new InvalidOperationException();
             }
 
-            NativeTransfer(writeBuffer, readBuffer, true);
+            NativeTransfer(
+                writeBuffer,
+                readBuffer,
+                true);
         }
 
         /// <summary>
@@ -223,11 +240,7 @@ namespace System.Device.Spi
             }
         }
 
-        /// <summary>
-        /// Disposes this instance
-        /// </summary>
-        /// <param name="disposing"><see langword="true"/> if explicitly disposing, <see langword="false"/> if in finalizer</param>
-        protected void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!_disposedValue)
             {
@@ -249,10 +262,16 @@ namespace System.Device.Spi
         private extern void DisposeNative();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        private extern void NativeTransfer(SpanByte writeBuffer, SpanByte readBuffer, bool fullDuplex);
+        private extern void NativeTransfer(
+            ushort[] writeBuffer,
+            ushort[] readBuffer,
+            bool fullDuplex);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        private extern void NativeTransfer(ushort[] writeBuffer, ushort[] readBuffer, bool fullDuplex);
+        private extern void NativeTransfer(
+            ReadOnlySpan<byte> writeBuffer,
+            Span<byte> readBuffer,
+            bool fullDuplex);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         private extern void NativeInit();

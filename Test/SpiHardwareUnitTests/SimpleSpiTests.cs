@@ -36,7 +36,7 @@ namespace SpiHardwareUnitTests
         public void CheckSpiConectionSettings_00()
         {
             // Arrange
-            SpiConnectionSettings connectionSettings = new SpiConnectionSettings(1, 12);
+            SpiConnectionSettings connectionSettings = new(1, 12);
             connectionSettings.ChipSelectLineActiveState = PinValue.High;
             connectionSettings.ClockFrequency = 1_000_000;
             connectionSettings.DataBitLength = 8;
@@ -46,39 +46,39 @@ namespace SpiHardwareUnitTests
 
 
             // Assert
-            Assert.Equal(12, connectionSettings.ChipSelectLine);
-            Assert.True(PinValue.High == connectionSettings.ChipSelectLineActiveState);
-            Assert.Equal(1_000_000, connectionSettings.ClockFrequency);
-            Assert.Equal(8, connectionSettings.DataBitLength);
-            Assert.True(DataFlow.LsbFirst == connectionSettings.DataFlow);
-            Assert.True(SpiMode.Mode2 == connectionSettings.Mode);
-            Assert.Equal(1, connectionSettings.BusId);
-            Assert.Equal((int)SpiBusConfiguration.HalfDuplex, (int)connectionSettings.Configuration);
+            Assert.AreEqual(12, connectionSettings.ChipSelectLine);
+            Assert.IsTrue(PinValue.High == connectionSettings.ChipSelectLineActiveState);
+            Assert.AreEqual(1_000_000, connectionSettings.ClockFrequency);
+            Assert.AreEqual(8, connectionSettings.DataBitLength);
+            Assert.IsTrue(DataFlow.LsbFirst == connectionSettings.DataFlow);
+            Assert.IsTrue(SpiMode.Mode2 == connectionSettings.Mode);
+            Assert.AreEqual(1, connectionSettings.BusId);
+            Assert.AreEqual((int)SpiBusConfiguration.HalfDuplex, (int)connectionSettings.Configuration);
         }
 
         [TestMethod]
         public void CheckSpiConectionSettings_01()
         {
             // Arrange
-            SpiConnectionSettings connectionSettings = new SpiConnectionSettings(1);
+            SpiConnectionSettings connectionSettings = new(1);
             connectionSettings.ClockFrequency = 1_000_000;
             connectionSettings.DataBitLength = 16;
 
             // Assert
-            Assert.Equal(-1, connectionSettings.ChipSelectLine);
-            Assert.Equal(1_000_000, connectionSettings.ClockFrequency);
-            Assert.Equal(8, connectionSettings.DataBitLength);
-            Assert.True(DataFlow.MsbFirst == connectionSettings.DataFlow);
-            Assert.True(SpiMode.Mode0 == connectionSettings.Mode);
-            Assert.Equal(1, connectionSettings.BusId);
-            Assert.Equal((int)SpiBusConfiguration.FullDuplex, (int)connectionSettings.Configuration);
+            Assert.AreEqual(-1, connectionSettings.ChipSelectLine);
+            Assert.AreEqual(1_000_000, connectionSettings.ClockFrequency);
+            Assert.AreEqual(8, connectionSettings.DataBitLength);
+            Assert.IsTrue(DataFlow.MsbFirst == connectionSettings.DataFlow);
+            Assert.IsTrue(SpiMode.Mode0 == connectionSettings.Mode);
+            Assert.AreEqual(1, connectionSettings.BusId);
+            Assert.AreEqual((int)SpiBusConfiguration.FullDuplex, (int)connectionSettings.Configuration);
         }
 
 
         [TestMethod]
         public void CheckSpiConectionSettingsClone()
         {
-            SpiConnectionSettings connectionSettings = new SpiConnectionSettings(1, 12);
+            SpiConnectionSettings connectionSettings = new(1, 12);
             connectionSettings.ChipSelectLineActiveState = PinValue.High;
             connectionSettings.ClockFrequency = 1_000_000;
             connectionSettings.DataBitLength = 8;
@@ -90,14 +90,14 @@ namespace SpiHardwareUnitTests
             var connectionSettingsClone = new SpiConnectionSettings(connectionSettings);
 
             // now compare all properties
-            Assert.Equal(connectionSettingsClone.ChipSelectLine, connectionSettings.ChipSelectLine);
-            Assert.True(connectionSettingsClone.ChipSelectLineActiveState == connectionSettings.ChipSelectLineActiveState);
-            Assert.Equal(connectionSettingsClone.ClockFrequency, connectionSettings.ClockFrequency);
-            Assert.Equal(connectionSettingsClone.DataBitLength, connectionSettings.DataBitLength);
-            Assert.True(connectionSettingsClone.DataFlow == connectionSettings.DataFlow);
-            Assert.True(connectionSettingsClone.Mode == connectionSettings.Mode);
-            Assert.Equal(connectionSettingsClone.BusId, connectionSettings.BusId);
-            Assert.Equal((int)connectionSettingsClone.Configuration, (int)connectionSettings.Configuration);
+            Assert.AreEqual(connectionSettingsClone.ChipSelectLine, connectionSettings.ChipSelectLine);
+            Assert.IsTrue(connectionSettingsClone.ChipSelectLineActiveState == connectionSettings.ChipSelectLineActiveState);
+            Assert.AreEqual(connectionSettingsClone.ClockFrequency, connectionSettings.ClockFrequency);
+            Assert.AreEqual(connectionSettingsClone.DataBitLength, connectionSettings.DataBitLength);
+            Assert.IsTrue(connectionSettingsClone.DataFlow == connectionSettings.DataFlow);
+            Assert.IsTrue(connectionSettingsClone.Mode == connectionSettings.Mode);
+            Assert.AreEqual(connectionSettingsClone.BusId, connectionSettings.BusId);
+            Assert.AreEqual((int)connectionSettingsClone.Configuration, (int)connectionSettings.Configuration);
         }
 
         [TestMethod]
@@ -110,8 +110,8 @@ namespace SpiHardwareUnitTests
             connToTest.DataBitLength = 16;
 
             //Assert
-            Assert.NotEqual(_connectinSettings.DataBitLength, connToTest.DataBitLength);
-            Assert.NotEqual(_connectinSettings.ChipSelectLine, connToTest.ChipSelectLine);
+            Assert.AreNotEqual(_connectinSettings.DataBitLength, connToTest.DataBitLength);
+            Assert.AreNotEqual(_connectinSettings.ChipSelectLine, connToTest.ChipSelectLine);
         }
 
         [TestMethod]
@@ -119,14 +119,14 @@ namespace SpiHardwareUnitTests
         {
             Debug.WriteLine("For this test, make sure you connect MOSI to MISO");
             // Arrange
-            SpanByte writeBuffer = new byte[4] { 0xAA, 0xBB, 0xCC, 0x42 };
-            SpanByte readBuffer = new byte[4];
+            ReadOnlySpan<byte> writeBuffer = new byte[4] { 0xAA, 0xBB, 0xCC, 0x42 };
+            Span<byte> readBuffer = new(new byte[4]);
 
             // Act
             _spiDevice.TransferFullDuplex(writeBuffer, readBuffer);
 
             // Assert
-            Assert.Equal(writeBuffer.ToArray(), readBuffer.ToArray());
+            Assert.AreEqual(writeBuffer.ToArray(), readBuffer.ToArray());
         }
 
         [TestMethod]
@@ -134,16 +134,19 @@ namespace SpiHardwareUnitTests
         {
             Debug.WriteLine("For this test, make sure you connect MOSI to MISO");
             // Arrange
-            SpanByte writeBuffer = new byte[4] { 0xAA, 0xBB, 0xCC, 0x42 };
-            SpanByte toWriteAndAct = writeBuffer.Slice(1, 2);
+            Span<byte> writeBuffer = new(new byte[4] { 0xAA, 0xBB, 0xCC, 0x42 });
+            
+            Span<byte> toWriteAndAct = writeBuffer.Slice(1, 2);
+            
             Debug.WriteLine($"Buffer to send length: {toWriteAndAct.Length}");
-            SpanByte readBuffer = new byte[toWriteAndAct.Length];
+            
+            Span<byte> readBuffer = new(new byte[toWriteAndAct.Length]);
 
             // Act
             _spiDevice.TransferFullDuplex(toWriteAndAct, readBuffer);
 
             // Assert
-            Assert.Equal(toWriteAndAct.ToArray(), readBuffer.ToArray());
+            Assert.AreEqual(toWriteAndAct.ToArray(), readBuffer.ToArray());
         }
 
         [TestMethod]
@@ -158,7 +161,7 @@ namespace SpiHardwareUnitTests
             _spiDevice.TransferFullDuplex(writeBuffer, readBuffer);
 
             // Assert
-            Assert.Equal(writeBuffer, readBuffer);
+            Assert.AreEqual(writeBuffer, readBuffer);
         }
 
         [TestMethod]
@@ -174,7 +177,7 @@ namespace SpiHardwareUnitTests
         [TestMethod]
         public void TryToOpenSecondTimeSpi()
         {
-            Assert.Throws(typeof(SpiDeviceAlreadyInUseException), () =>
+            Assert.ThrowsException(typeof(SpiDeviceAlreadyInUseException), () =>
             {
                 SpiDevice newSpi = SpiDevice.Create(new SpiConnectionSettings(1, 12));
             });
