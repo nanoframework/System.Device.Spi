@@ -19,20 +19,18 @@
 This package requires a target with System.Device.Spi v$nativeVersion$ (checksum $checksum$).</description>
     <tags>nanoFramework C# csharp netmf netnf System.Device.Spi</tags>
     <dependencies>
-      <dependency id="nanoFramework.CoreLibrary" version="2.0.0-preview.35" />
-      <dependency id="nanoFramework.Runtime.Events" version="2.0.0-preview.8" />
-      <dependency id="nanoFramework.System.Device.Gpio" version="2.0.0-preview.9" />
+      <group targetFramework=".NETnanoFramework1.0">
+        <dependency id="nanoFramework.CoreLibrary" version="2.0.0-preview.35" />
+        <dependency id="nanoFramework.Runtime.Events" version="2.0.0-preview.8" />
+        <dependency id="nanoFramework.System.Device.Gpio" version="2.0.0-preview.9" />
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="System.Device.Spi\bin\Release\System.Device.Spi.dll" target="lib\System.Device.Spi.dll" />
-    <file src="System.Device.Spi\bin\Release\System.Device.Spi.pdb" target="lib\System.Device.Spi.pdb" />
-    <file src="System.Device.Spi\bin\Release\System.Device.Spi.pdbx" target="lib\System.Device.Spi.pdbx" />
-    <file src="System.Device.Spi\bin\Release\System.Device.Spi.pe" target="lib\System.Device.Spi.pe" />
-    <file src="System.Device.Spi\bin\Release\System.Device.Spi.xml" target="lib\System.Device.Spi.xml" />
-    <file src="assets\readme.txt" target="" />
     <file src="README.md" target="docs\" />
-    <file src="assets\nf-logo.png" target="images" />
+    <file src="assets\readme.txt" target="" />
     <file src="LICENSE.md" target="" />
+    <file src="assets\nf-logo.png" target="images" />
+    <file src="System.Device.Spi\bin\Release\System.Device.Spi.*" target="lib\netnano1.0" />
   </files>
 </package>
