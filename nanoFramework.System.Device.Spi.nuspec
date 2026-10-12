@@ -16,11 +16,11 @@
     <repository type="git" url="https://github.com/nanoframework/System.Device.Spi" commit="$commit$" />
     <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
     <description>This package includes the System.Device.Spi assembly for .NET nanoFramework C# projects.
-This package requires a target with System.Device.Spi v$nativeVersion$ (checksum $checksum$).</description>
-    <tags>nanoFramework C# csharp netmf netnf System.Device.Spi</tags>
+This package requires a target with System.Device.Spi native contract hash $nativeContractHash$.</description>
+    <tags>nanoFramework C# csharp netmf netnf System.Device.Spi nfnc-$nativeContractHash$</tags>
     <dependencies>
       <group targetFramework=".NETnanoFramework1.0">
-        <dependency id="nanoFramework.CoreLibrary" version="2.0.0-preview.52" />
+        <dependency id="nanoFramework.CoreLibrary" version="2.0.0-preview.63" />
         <dependency id="nanoFramework.Runtime.Events" version="2.0.0-preview.13" />
         <dependency id="nanoFramework.System.Device.Gpio" version="2.0.0-preview.18" />
       </group>
