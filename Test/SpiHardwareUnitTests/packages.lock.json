@@ -4,27 +4,27 @@
     ".NETnanoFramework,Version=v1.0": {
       "nanoFramework.CoreLibrary": {
         "type": "Direct",
-        "requested": "[2.0.0-preview.110, 2.0.0-preview.110]",
-        "resolved": "2.0.0-preview.110",
-        "contentHash": "LYkdT/O5U6/29YQRg8MQLaB8yFsPj032e0pZg+mqvmPJf+VpolbTBSNcAStal83JnK1ifR0HvVQCpGgnczCSfA=="
+        "requested": "[2.0.0-preview.125, 2.0.0-preview.125]",
+        "resolved": "2.0.0-preview.125",
+        "contentHash": "MF3uIcQJxaxif5Bib29eEWei+Jy/D5xYPBRsTeFHYVpSp++qDdxdafqsgWJWG8jZlWD6gHI+UFSEM62l9SG8ZA=="
       },
       "nanoFramework.Runtime.Events": {
         "type": "Direct",
-        "requested": "[2.0.0-preview.19, 2.0.0-preview.19]",
-        "resolved": "2.0.0-preview.19",
-        "contentHash": "stA/5UwMO802D6B2z6rcvQVsdpX2eUywhWPDQ/elvm7dAc6clpC9s3WuhFGI8NiuLnJftU6g4Kmj68CS9QYmxQ=="
+        "requested": "[2.0.0-preview.23, 2.0.0-preview.23]",
+        "resolved": "2.0.0-preview.23",
+        "contentHash": "WyMVjB+WGsTVLmggfs7MoTc6/QQ4D0w4hLSUdiJZFgydv2eVkIViMjm3fNPkuykyrMMfflaM5h61/VITZd0c0g=="
       },
       "nanoFramework.System.Device.Gpio": {
         "type": "Direct",
-        "requested": "[2.0.0-preview.25, 2.0.0-preview.25]",
-        "resolved": "2.0.0-preview.25",
-        "contentHash": "6Wp533sdxO460Do1TFRzrSuIRBMkyd5cQOL04oGkA0F8BBW+N1jAjst41djIzHm4sm4l3KKoXErANlaz+k5Zhg=="
+        "requested": "[2.0.0-preview.30, 2.0.0-preview.30]",
+        "resolved": "2.0.0-preview.30",
+        "contentHash": "sMGiQsIPMfX8ZDF2PfXmZNnJf4Wcf0FLdpMX/KLnhe4SNZ9pO5q5YK8dXKsn3Qh69QP+UjkTrjlXlEve5/+Wcw=="
       },
       "nanoFramework.TestFramework": {
         "type": "Direct",
-        "requested": "[4.0.0-preview.69, 4.0.0-preview.69]",
-        "resolved": "4.0.0-preview.69",
-        "contentHash": "yiwiJDrM5I9IJC6AIVCxIey48EMBCl0kxhB+EC5XPiy62+QwgqcXrg7Nu/lIAfa6YDR+DtJyVgcseq9Cm1ieRA=="
+        "requested": "[4.0.0-preview.74, 4.0.0-preview.74]",
+        "resolved": "4.0.0-preview.74",
+        "contentHash": "7umZqi8hj+8+cDyc/H6CaAA3dwpMeniBxzoawWm9iZvH9nrnWYPSNucYc73PcCAuKlDGGHA1FFxTUudjGgodBg=="
       }
     }
   }
